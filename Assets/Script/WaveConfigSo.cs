@@ -7,14 +7,13 @@ public class WaveConfigSo : ScriptableObject
 {
     // Start is called before the first frame update
     [SerializeField] Transform pathPrefab;
-    [SerializeField] GameObject enemyPrefab;
+    GameObject enemyPrefab;
     [SerializeField] List<GameObject> enemyList;
     [SerializeField] private float movSpeed = 7f;
+    [SerializeField] float timeBetween = 1f;
+    [SerializeField] float spawnTimeVariant = 0f;
+    [SerializeField] float minSpawnTime = 0.2f;
 
-    public Transform GetStartingPoint()
-    {
-        return pathPrefab.GetChild(0);
-    }
 
 
 
@@ -32,18 +31,26 @@ public class WaveConfigSo : ScriptableObject
     {
         return movSpeed;
     }
-    // public List<GameObject> GetenemyList() {
-    //     List<GameObject> enemyList;
-
-
-    // }
     public int GetEnemyCount()
     {
         return enemyList.Count;
     }
+
+
     public GameObject GetEnemyPrefab(int index)
     {
         return enemyList[index];
     }
 
+    public Transform GetStartingPoint()
+    {
+        return pathPrefab.GetChild(0);
+    }
+
+    public float GetRandomSpawnTime()
+    {
+        float spawnTime = Random.Range(timeBetween - spawnTimeVariant,
+                                        timeBetween + spawnTimeVariant);
+        return Mathf.Clamp(spawnTime, minSpawnTime, float.MaxValue);
+    }
 }

@@ -13,18 +13,27 @@ public class EnemySpawner : MonoBehaviour
     }
     void Start()
     {
-        SpawnEnemy();
+        StartCoroutine(SpawnEnemy());
     }
+
+
     public WaveConfigSo GetCurrentWave()
     {
         return currentWave;
     }
-    void SpawnEnemy()
+
+
+    IEnumerator SpawnEnemy()
     {
-        // GameObject enemy = new GameObject();
-        Instantiate(currentWave.GetEnemyPrefab(0),
-                    currentWave.GetStartingPoint().position,
-                    Quaternion.identity);
+        for (int i = 0; i < currentWave.GetEnemyCount(); i++)
+        {
+            // instatiate new enemy   
+            Instantiate(currentWave.GetEnemyPrefab(i),
+                        currentWave.GetStartingPoint().position,
+                        Quaternion.identity,
+                        transform);
+            yield return new WaitForSeconds(currentWave.GetRandomSpawnTime());
+        }
     }
 
 

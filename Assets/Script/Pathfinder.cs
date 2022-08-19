@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pathfinder : MonoBehaviour
 {
     // Start is called before the first frame update
-    WaveConfigSo waveConfig;
+    [SerializeField] WaveConfigSo waveConfig;
     List<Transform> waypoints;
     EnemySpawner enemySpawner;
     int waveIndex = 0;
